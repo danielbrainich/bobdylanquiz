@@ -609,7 +609,7 @@ img {
   }
 
   .hero-image-wrap {
-    width: min(100%, 34vh, 300px);
+    width: min(100%, 44vh, 360px);
   }
 }
 
