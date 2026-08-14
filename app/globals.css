@@ -108,8 +108,11 @@ img {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   min-height: 0;
+}
+
+.hall-of-fame-view {
+  margin-top: max(1.5rem, 6vh);
 }
 
 .site-header {

@@ -76,7 +76,7 @@ export default function GameApp() {
 
       <main>
         {tab === "hallOfFame" && (
-          <div>
+          <div className="hall-of-fame-view">
             <h2 className="poster-heading" style={{ textAlign: "center" }}>
               Hall of Fame
             </h2>
