@@ -93,7 +93,7 @@ export default function GameApp() {
                 alt="Illustrated portrait of Bob Dylan"
                 fill
                 priority
-                sizes="100vw"
+                sizes="(min-width: 640px) 360px, min(calc(100vw - 2.5rem), 420px)"
                 style={{ objectFit: "cover", objectPosition: "top center" }}
               />
             </div>
