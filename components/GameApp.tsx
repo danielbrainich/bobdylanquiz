@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import QuizGame from "@/components/QuizGame";
 import Leaderboard from "@/components/Leaderboard";
 import ConfirmModal from "@/components/ConfirmModal";
@@ -86,6 +87,16 @@ export default function GameApp() {
 
         {tab === "play" && playPhase === "start" && (
           <div className="start-screen">
+            <div className="hero-image-wrap">
+              <Image
+                src="/dylan-hero.png"
+                alt="Illustrated portrait of Bob Dylan"
+                fill
+                priority
+                sizes="100vw"
+                style={{ objectFit: "cover", objectPosition: "top center" }}
+              />
+            </div>
             <p className="start-blurb typewriter">
               Ten characters from the songs of Bob Dylan. Drag each one onto the
               record it belongs to &mdash; or just tap the answer. Get through

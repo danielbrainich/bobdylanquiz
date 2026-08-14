@@ -592,6 +592,16 @@ img {
   min-height: 0;
 }
 
+.hero-image-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: clamp(200px, 42vh, 480px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
 .results-screen {
   flex: 1;
   display: flex;
