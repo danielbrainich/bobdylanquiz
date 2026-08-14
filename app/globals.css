@@ -601,6 +601,18 @@ img {
   mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
 }
 
+@media (min-width: 640px) {
+  .start-screen {
+    justify-content: flex-start;
+    padding: 0.25rem 0 1rem;
+    gap: 1rem;
+  }
+
+  .hero-image-wrap {
+    width: min(100%, 34vh, 300px);
+  }
+}
+
 .results-screen {
   flex: 1;
   display: flex;
