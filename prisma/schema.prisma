@@ -17,6 +17,27 @@ model ScoreEntry {
   timeMs    Int
   userId    String?
   createdAt DateTime @default(now())
+  quizRunId String?  @unique
+  quizRun   QuizRun? @relation(fields: [quizRunId], references: [id])
 
   @@index([score, timeMs])
+}
+
+model QuizRun {
+  id            String    @id @default(cuid())
+  startedAt     DateTime  @default(now())
+  finishedAt    DateTime?
+  answeredCount Int       @default(0)
+  score         Int?
+  timeMs        Int?
+  scoreEntry    ScoreEntry?
+
+  @@index([finishedAt])
+}
+
+model CharacterStat {
+  character String @id
+  served    Int    @default(0)
+  correct   Int    @default(0)
+  wrong     Int    @default(0)
 }

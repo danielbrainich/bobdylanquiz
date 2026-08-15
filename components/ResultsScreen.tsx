@@ -7,11 +7,13 @@ import Leaderboard from "@/components/Leaderboard";
 export default function ResultsScreen({
   score,
   timeMs,
+  runId,
   onPlayAgain,
   onSubmitted,
 }: {
   score: number;
   timeMs: number;
+  runId?: string | null;
   onPlayAgain: () => void;
   onSubmitted?: () => void;
 }) {
@@ -32,7 +34,7 @@ export default function ResultsScreen({
       const res = await fetch("/api/scores", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ initials, score, timeMs }),
+        body: JSON.stringify({ initials, score, timeMs, quizRunId: runId ?? undefined }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => null);

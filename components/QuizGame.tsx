@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { QuizEntry } from "@/lib/data";
 import { MAX_QUIZ_MS, QUESTION_COUNT, formatMinutes, pickQuestions } from "@/lib/quiz";
 import QuestionCard from "@/components/QuestionCard";
@@ -25,12 +25,34 @@ export default function QuizGame({
   const [finished, setFinished] = useState(false);
   const [startTime] = useState(() => Date.now());
   const [liveElapsedMs, setLiveElapsedMs] = useState(0);
+  const [runId, setRunId] = useState<string | null>(null);
+  const finishSentRef = useRef(false);
 
   useEffect(() => {
     if (elapsedMs !== null) return;
     const id = setInterval(() => setLiveElapsedMs(Date.now() - startTime), 250);
     return () => clearInterval(id);
   }, [elapsedMs, startTime]);
+
+  useEffect(() => {
+    fetch("/api/quiz/start", { method: "POST" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => data?.runId && setRunId(data.runId))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!finished || elapsedMs === null || !runId || finishSentRef.current) return;
+    finishSentRef.current = true;
+    const timedOut = elapsedMs >= MAX_QUIZ_MS;
+    const score = timedOut ? 0 : answers.filter((a) => a.correct).length;
+    fetch("/api/quiz/finish", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ runId, score, timeMs: elapsedMs }),
+    }).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finished, elapsedMs, runId]);
 
   const displayElapsedMs = elapsedMs ?? liveElapsedMs;
   const timedOut = !finished && displayElapsedMs >= MAX_QUIZ_MS;
@@ -44,6 +66,13 @@ export default function QuizGame({
     setAnswers(next);
     if (isLast) {
       setElapsedMs(Date.now() - startTime);
+    }
+    if (runId) {
+      fetch("/api/quiz/answer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ runId, character: current.character, correct }),
+      }).catch(() => {});
     }
   }
 
@@ -63,6 +92,7 @@ export default function QuizGame({
       <ResultsScreen
         score={score}
         timeMs={elapsedMs}
+        runId={runId}
         onPlayAgain={() => window.location.reload()}
         onSubmitted={onScoreSubmitted}
       />

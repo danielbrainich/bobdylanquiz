@@ -539,6 +539,24 @@ img {
   border-color: var(--blue-bright);
 }
 
+.login-input {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  text-align: center;
+  width: 14ch;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-raised-2);
+  color: var(--cream);
+  border: 2px solid var(--blue);
+  border-radius: var(--radius);
+  transition: border-color var(--transition-fast);
+}
+
+.login-input:focus-visible {
+  outline: none;
+  border-color: var(--blue-bright);
+}
+
 /* ---------- Leaderboard ---------- */
 
 .leaderboard-table {
@@ -590,6 +608,36 @@ img {
   font-family: var(--font-type);
   color: var(--cream-dim);
   padding: 1rem 0;
+}
+
+/* ---------- Stats page ---------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.stat-tile {
+  background: var(--bg-raised);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--blue-bright);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-family: var(--font-type);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--cream-dim);
+  margin-top: 0.3rem;
 }
 
 /* ---------- Start screen ---------- */

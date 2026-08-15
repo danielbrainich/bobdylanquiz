@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const { initials, score, timeMs } = body as Record<string, unknown>;
+  const { initials, score, timeMs, quizRunId } = body as Record<string, unknown>;
 
   if (typeof initials !== "string" || !INITIALS_RE.test(initials)) {
     return NextResponse.json(
@@ -33,11 +33,16 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  if (quizRunId !== undefined && typeof quizRunId !== "string") {
+    return NextResponse.json({ error: "quizRunId must be a string" }, { status: 400 });
+  }
+
   const entry = await prisma.scoreEntry.create({
     data: {
       initials,
       score: score as number,
       timeMs: timeMs as number,
+      ...(quizRunId ? { quizRunId: quizRunId as string } : {}),
     },
   });
 
