@@ -128,6 +128,13 @@ export default function GameApp() {
               kings, clowns, and saints. Match {QUESTION_COUNT} of them to the
               songs they come from, as fast as you can.
             </p>
+            <p
+              className="typewriter"
+              style={{ color: "var(--cream-dim)", fontSize: "0.85rem", marginTop: "-0.5rem" }}
+            >
+              With 100 characters in the mix, every round&rsquo;s different &mdash;
+              play again and again!
+            </p>
             <button type="button" className="btn btn-primary" onClick={startQuiz}>
               Start Quiz
             </button>
