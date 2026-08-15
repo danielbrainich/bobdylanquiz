@@ -89,7 +89,7 @@ export default function GameApp() {
           <div className="start-screen">
             <div className="hero-image-wrap">
               <Image
-                src="/dylan-hero.png"
+                src="/dylan-hero-v2.png"
                 alt="Illustrated portrait of Bob Dylan"
                 fill
                 priority
