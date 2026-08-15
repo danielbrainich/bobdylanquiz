@@ -198,7 +198,7 @@ export default function QuestionCard({
             <div className="reveal typewriter">
               <p className="reveal-quote">&ldquo;{entry.quote}&rdquo;</p>
               <p className="reveal-attribution">
-                &mdash; <b>{entry.song}</b>
+                <span className="reveal-dash">&mdash;</span> <b>{entry.song}</b>
               </p>
             </div>
             <div className="modal-actions">

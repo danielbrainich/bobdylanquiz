@@ -473,6 +473,10 @@ img {
   gap: 0.4rem;
 }
 
+.reveal-dash {
+  transform: translateY(4px);
+}
+
 .next-row {
   margin-top: 1.175rem;
   display: flex;
