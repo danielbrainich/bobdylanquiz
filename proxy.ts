@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const COOKIE_NAME = "stats_auth";
 
 export function proxy(request: NextRequest) {
-  const password = process.env.STATS_PASSWORD;
+  const password = process.env.PASSWORD;
   if (!password) return NextResponse.next();
 
   if (request.nextUrl.pathname === "/stats/login") {

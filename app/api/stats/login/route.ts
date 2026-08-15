@@ -5,7 +5,7 @@ const COOKIE_NAME = "stats_auth";
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
   const password = formData.get("password");
-  const expected = process.env.STATS_PASSWORD;
+  const expected = process.env.PASSWORD;
 
   if (typeof password !== "string" || !expected || password !== expected) {
     return NextResponse.redirect(new URL("/stats/login?error=1", request.url), 303);
