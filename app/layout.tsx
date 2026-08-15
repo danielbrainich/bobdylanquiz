@@ -21,9 +21,13 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bobdylanquiz.danielbrainich.com"),
   title: "Tangled Up In Who? — A Bob Dylan Quiz",
   description:
     "A Bob Dylan character-matching quiz. Drag each character to the song they belong in.",
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
