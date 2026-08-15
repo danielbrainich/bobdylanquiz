@@ -34,6 +34,15 @@ export const DATA = [
   { character: "Sweet Melinda", song: "Just Like Tom Thumb’s Blues", quote: "Sweet Melinda / The peasants call her the goddess of gloom / She speaks good English / And she invites you up into her room" },
   { character: "The Fortune-Telling Lady", song: "Desolation Row", quote: "The fortune-telling lady / Has even taken all her things inside" },
   { character: "Ezra Pound & T.S. Eliot", song: "Desolation Row", quote: "And Ezra Pound and T. S. Eliot / Fighting in the captain’s tower" },
+  { character: "Louise and Her Lover", song: "Visions of Johanna", quote: "Just Louise and her lover so entwined / And these visions of Johanna that conquer my mind" },
+  { character: "Little Boy Lost", song: "Visions of Johanna", quote: "Now, little boy lost, he takes himself so seriously / He brags of his misery, he likes to live dangerously" },
+  { character: "The Guilty Undertaker", song: "I Want You", quote: "The guilty undertaker sighs / The lonesome organ grinder cries" },
+  { character: "The Drunken Politician", song: "I Want You", quote: "The drunken politician leaps / Upon the street where mothers weep" },
+  { character: "The Ragman", song: "Stuck Inside of Mobile with the Memphis Blues Again", quote: "Oh, the ragman draws circles / Up and down the block / I’d ask him what the matter was / But I know that he don’t talk" },
+  { character: "Some French Girl", song: "Stuck Inside of Mobile with the Memphis Blues Again", quote: "Well, Shakespeare, he’s in the alley / With his pointed shoes and his bells / Speaking to some French girl / Who says she knows me well" },
+  { character: "Queen Mary", song: "Just Like a Woman", quote: "Queen Mary, she’s my friend / Yes, I believe I’ll go see her again" },
+  { character: "The Persian Drunkard", song: "Absolutely Sweet Marie", quote: "Well, I got the fever down in my pockets / The Persian drunkard, he follows me" },
+  { character: "The Kings of Tyrus", song: "Sad-Eyed Lady of the Lowlands", quote: "The kings of Tyrus with their convict list / Are waiting in line for their geranium kiss" },
 ] as const;
 
 export type QuizEntry = (typeof DATA)[number];
