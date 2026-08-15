@@ -200,7 +200,7 @@ export default function QuestionCard({
               <b>
                 <ArrowIcon />
               </b>{" "}
-              <b>{entry.song}</b>: {entry.paraphrase}
+              <b>{entry.song}</b>: &ldquo;{entry.quote}&rdquo;
             </p>
             <div className="modal-actions">
               <button type="button" className="btn btn-primary" onClick={onNext}>
