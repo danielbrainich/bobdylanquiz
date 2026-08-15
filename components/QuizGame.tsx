@@ -5,15 +5,18 @@ import type { QuizEntry } from "@/lib/data";
 import { MAX_QUIZ_MS, QUESTION_COUNT, formatMinutes, pickQuestions } from "@/lib/quiz";
 import QuestionCard from "@/components/QuestionCard";
 import ResultsScreen from "@/components/ResultsScreen";
+import ConfirmModal from "@/components/ConfirmModal";
 
 type Answer = { correct: boolean; song: string };
 
 export default function QuizGame({
   onFinished,
   onScoreSubmitted,
+  onTimeout,
 }: {
   onFinished?: () => void;
   onScoreSubmitted?: () => void;
+  onTimeout?: () => void;
 }) {
   const [questions] = useState<QuizEntry[]>(() => pickQuestions());
   const [index, setIndex] = useState(0);
@@ -30,6 +33,7 @@ export default function QuizGame({
   }, [elapsedMs, startTime]);
 
   const displayElapsedMs = elapsedMs ?? liveElapsedMs;
+  const timedOut = !finished && displayElapsedMs >= MAX_QUIZ_MS;
 
   const current = questions[index];
   const isLast = index === QUESTION_COUNT - 1;
@@ -81,6 +85,15 @@ export default function QuizGame({
         isLast={isLast}
         onAnswer={handleAnswer}
         onNext={handleNext}
+      />
+
+      <ConfirmModal
+        open={timedOut}
+        singleAction
+        title="Time's Up"
+        message="You've been at this for an hour, so this run doesn't count. Head back and give it another shot."
+        confirmLabel="OK"
+        onConfirm={() => onTimeout?.()}
       />
     </div>
   );

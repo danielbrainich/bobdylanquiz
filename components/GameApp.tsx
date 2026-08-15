@@ -124,6 +124,7 @@ export default function GameApp() {
             key={quizRunId}
             onFinished={() => setQuizFinished(true)}
             onScoreSubmitted={() => setScoreSubmitted(true)}
+            onTimeout={() => navigateTo("play")}
           />
         )}
       </main>

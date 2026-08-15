@@ -10,6 +10,7 @@ export default function ConfirmModal({
   cancelLabel = "Stay",
   onConfirm,
   onCancel,
+  singleAction = false,
 }: {
   open: boolean;
   title: string;
@@ -17,23 +18,26 @@ export default function ConfirmModal({
   confirmLabel?: string;
   cancelLabel?: string;
   onConfirm: () => void;
-  onCancel: () => void;
+  onCancel?: () => void;
+  singleAction?: boolean;
 }) {
+  const dismiss = singleAction ? onConfirm : onCancel ?? onConfirm;
+
   useEffect(() => {
     if (!open) return;
     function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onCancel();
+      if (e.key === "Escape") dismiss();
     }
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [open, onCancel]);
+  }, [open, dismiss]);
 
   if (!open) return null;
 
   return (
     <div
       className="modal-backdrop"
-      onClick={onCancel}
+      onClick={dismiss}
       role="presentation"
     >
       <div
@@ -51,9 +55,11 @@ export default function ConfirmModal({
           {message}
         </p>
         <div className="modal-actions">
-          <button type="button" className="btn" onClick={onCancel}>
-            {cancelLabel}
-          </button>
+          {!singleAction && (
+            <button type="button" className="btn" onClick={onCancel}>
+              {cancelLabel}
+            </button>
+          )}
           <button type="button" className="btn btn-primary" onClick={onConfirm}>
             {confirmLabel}
           </button>
