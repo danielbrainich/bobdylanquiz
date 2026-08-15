@@ -2,14 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { formatMinutes, LEADERBOARD_SIZE } from "@/lib/quiz";
-
-type Entry = {
-  id: string;
-  initials: string;
-  score: number;
-  timeMs: number;
-  createdAt: string;
-};
+import { getCachedLeaderboard, loadLeaderboard, type LeaderboardEntry } from "@/lib/leaderboardCache";
 
 export default function Leaderboard({
   highlightId,
@@ -18,27 +11,26 @@ export default function Leaderboard({
   highlightId?: string | null;
   refreshSignal?: number;
 }) {
-  const [entries, setEntries] = useState<Entry[] | null>(null);
+  const [entries, setEntries] = useState<LeaderboardEntry[] | null>(getCachedLeaderboard());
   const [error, setError] = useState(false);
 
   useEffect(() => {
     let ignore = false;
 
-    async function load() {
-      try {
-        const res = await fetch("/api/scores/leaderboard", { cache: "no-store" });
-        if (!res.ok) throw new Error("request failed");
-        const data = await res.json();
+    // A refreshSignal means the caller just submitted a score and wants fresh data.
+    loadLeaderboard(!!refreshSignal, (data) => {
+      if (!ignore) setEntries(data);
+    })
+      .then((data) => {
         if (!ignore) {
-          setEntries(data.entries);
+          setEntries(data);
           setError(false);
         }
-      } catch {
+      })
+      .catch(() => {
         if (!ignore) setError(true);
-      }
-    }
+      });
 
-    load();
     return () => {
       ignore = true;
     };

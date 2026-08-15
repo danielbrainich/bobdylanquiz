@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import QuizGame from "@/components/QuizGame";
 import Leaderboard from "@/components/Leaderboard";
 import ConfirmModal from "@/components/ConfirmModal";
 import { QUESTION_COUNT } from "@/lib/quiz";
+import { prefetchLeaderboard } from "@/lib/leaderboardCache";
 
 type Tab = "play" | "hallOfFame";
 type PlayPhase = "start" | "quiz";
@@ -21,6 +22,20 @@ export default function GameApp() {
   const [pendingAction, setPendingAction] = useState<Action>("goHome");
 
   const hasUnsavedProgress = playPhase === "quiz" && !(quizFinished && scoreSubmitted);
+
+  useEffect(() => {
+    // Defer until the browser is idle so this never competes with initial paint.
+    const win = window as typeof window & {
+      requestIdleCallback?: (cb: IdleRequestCallback) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+    if (typeof win.requestIdleCallback === "function") {
+      const id = win.requestIdleCallback(() => prefetchLeaderboard());
+      return () => win.cancelIdleCallback?.(id);
+    }
+    const timeout = setTimeout(() => prefetchLeaderboard(), 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   function navigateTo(destination: Tab) {
     setPlayPhase("start");
