@@ -9,6 +9,7 @@ import { QUESTION_COUNT } from "@/lib/quiz";
 
 type Tab = "play" | "hallOfFame";
 type PlayPhase = "start" | "quiz";
+type Action = "goHome" | "startQuiz" | "hallOfFame";
 
 export default function GameApp() {
   const [tab, setTab] = useState<Tab>("play");
@@ -17,7 +18,7 @@ export default function GameApp() {
   const [quizFinished, setQuizFinished] = useState(false);
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
   const [confirmLeaveOpen, setConfirmLeaveOpen] = useState(false);
-  const [pendingDestination, setPendingDestination] = useState<Tab>("play");
+  const [pendingAction, setPendingAction] = useState<Action>("goHome");
 
   const hasUnsavedProgress = playPhase === "quiz" && !(quizFinished && scoreSubmitted);
 
@@ -34,24 +35,30 @@ export default function GameApp() {
     setTab("play");
   }
 
-  function requestNavigate(destination: Tab) {
+  function performAction(action: Action) {
+    if (action === "startQuiz") startQuiz();
+    else if (action === "hallOfFame") navigateTo("hallOfFame");
+    else navigateTo("play");
+  }
+
+  function requestAction(action: Action) {
     if (hasUnsavedProgress) {
-      setPendingDestination(destination);
+      setPendingAction(action);
       setConfirmLeaveOpen(true);
     } else {
-      navigateTo(destination);
+      performAction(action);
     }
   }
 
   function handleConfirmLeave() {
     setConfirmLeaveOpen(false);
-    navigateTo(pendingDestination);
+    performAction(pendingAction);
   }
 
   return (
     <div className="app-shell">
       <header className="site-header">
-        <button type="button" className="brand" onClick={() => requestNavigate("play")}>
+        <button type="button" className="brand" onClick={() => requestAction("goHome")}>
           <span className="brand-title">Tangled Up In Who?</span>
           <span className="brand-sub">A Bob Dylan Quiz</span>
         </button>
@@ -59,7 +66,11 @@ export default function GameApp() {
           <button
             type="button"
             className="btn btn-small btn-play-toggle"
-            onClick={() => requestNavigate("play")}
+            onClick={() =>
+              requestAction(
+                playPhase === "quiz" && !quizFinished ? "goHome" : "startQuiz"
+              )
+            }
             aria-current={tab === "play" ? "page" : undefined}
           >
             {playPhase === "quiz" && !quizFinished ? "Reset" : "Play"}
@@ -67,7 +78,7 @@ export default function GameApp() {
           <button
             type="button"
             className="btn btn-small"
-            onClick={() => requestNavigate("hallOfFame")}
+            onClick={() => requestAction("hallOfFame")}
             aria-current={tab === "hallOfFame" ? "page" : undefined}
           >
             Hall of Fame
@@ -118,7 +129,7 @@ export default function GameApp() {
       </main>
 
       <footer className="site-footer">
-        Unofficial fan project. Created by{" "}
+        Created by{" "}
         <a href="https://danielbrainich.com" target="_blank" rel="noopener noreferrer">
           Daniel Brainich
         </a>
