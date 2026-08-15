@@ -73,7 +73,7 @@ export default function GameApp() {
             }
             aria-current={tab === "play" ? "page" : undefined}
           >
-            {playPhase === "quiz" && !quizFinished ? "Reset" : "Play"}
+            {playPhase === "quiz" && !quizFinished ? "Home" : "Play"}
           </button>
           <button
             type="button"
