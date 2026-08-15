@@ -109,9 +109,9 @@ export default function GameApp() {
               />
             </div>
             <p className="start-blurb typewriter">
-              Ten characters from the songs of Bob Dylan. Drag each one onto the
-              record it belongs to &mdash; or just tap the answer. Get through
-              all {QUESTION_COUNT} as fast as you can.
+              Dylan&rsquo;s songs are crowded with characters &mdash; outlaws,
+              kings, clowns, and saints. Match {QUESTION_COUNT} of them to the
+              songs they came from, as fast as you can.
             </p>
             <button type="button" className="btn btn-primary" onClick={startQuiz}>
               Start Quiz
