@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { QuizEntry } from "@/lib/data";
-import { MAX_QUIZ_MS, QUESTION_COUNT, pickQuestions } from "@/lib/quiz";
+import { MAX_QUIZ_MS, QUESTION_COUNT, formatMinutes, pickQuestions } from "@/lib/quiz";
 import QuestionCard from "@/components/QuestionCard";
 import ResultsScreen from "@/components/ResultsScreen";
 
@@ -20,13 +20,16 @@ export default function QuizGame({
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [elapsedMs, setElapsedMs] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
-  const startRef = useRef<number | null>(null);
+  const [startTime] = useState(() => Date.now());
+  const [liveElapsedMs, setLiveElapsedMs] = useState(0);
 
   useEffect(() => {
-    if (startRef.current === null) {
-      startRef.current = Date.now();
-    }
-  }, []);
+    if (elapsedMs !== null) return;
+    const id = setInterval(() => setLiveElapsedMs(Date.now() - startTime), 250);
+    return () => clearInterval(id);
+  }, [elapsedMs, startTime]);
+
+  const displayElapsedMs = elapsedMs ?? liveElapsedMs;
 
   const current = questions[index];
   const isLast = index === QUESTION_COUNT - 1;
@@ -35,8 +38,8 @@ export default function QuizGame({
     if (answers.length > index) return;
     const next = [...answers, { correct, song }];
     setAnswers(next);
-    if (isLast && startRef.current !== null) {
-      setElapsedMs(Date.now() - startRef.current);
+    if (isLast) {
+      setElapsedMs(Date.now() - startTime);
     }
   }
 
@@ -68,6 +71,7 @@ export default function QuizGame({
         <span>
           Question {index + 1} / {QUESTION_COUNT}
         </span>
+        <span>{formatMinutes(displayElapsedMs)}</span>
         <span>Score: {answers.filter((a) => a.correct).length}</span>
       </div>
 
