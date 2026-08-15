@@ -109,9 +109,9 @@ export default function GameApp() {
               />
             </div>
             <p className="start-blurb typewriter">
-              Dylan&rsquo;s songs are crowded with characters &mdash; outlaws,
+              Dylan&rsquo;s songs are crowded with characters: outlaws,
               kings, clowns, and saints. Match {QUESTION_COUNT} of them to the
-              songs they came from, as fast as you can.
+              songs they come from, as fast as you can.
             </p>
             <button type="button" className="btn btn-primary" onClick={startQuiz}>
               Start Quiz

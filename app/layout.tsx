@@ -21,7 +21,7 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "Tangled Up In Who?",
+  title: "Tangled Up In Who? — A Bob Dylan Quiz",
   description:
     "A Bob Dylan character-matching quiz. Drag each character to the song they belong in.",
 };
