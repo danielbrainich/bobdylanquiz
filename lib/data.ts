@@ -43,6 +43,22 @@ export const DATA = [
   { character: "Queen Mary", song: "Just Like a Woman", quote: "Queen Mary, she’s my friend / Yes, I believe I’ll go see her again" },
   { character: "The Persian Drunkard", song: "Absolutely Sweet Marie", quote: "Well, I got the fever down in my pockets / The Persian drunkard, he follows me" },
   { character: "The Kings of Tyrus", song: "Sad-Eyed Lady of the Lowlands", quote: "The kings of Tyrus with their convict list / Are waiting in line for their geranium kiss" },
+  { character: "The Joker", song: "All Along the Watchtower", quote: "“There must be some way out of here,” said the joker to the thief / “There’s too much confusion, I can’t get no relief”" },
+  { character: "The Thief", song: "All Along the Watchtower", quote: "“There must be some way out of here,” said the joker to the thief / “There’s too much confusion, I can’t get no relief”" },
+  { character: "A Poor Boy on the Street", song: "Tonight I’ll Be Staying Here with You", quote: "If there’s a poor boy on the street / Then let him have my seat / ’Cause tonight I’ll be staying here with you" },
+  { character: "An Italian Poet from the Thirteenth Century", song: "Tangled Up in Blue", quote: "Then she opened up a book of poems / And handed it to me / Written by an Italian poet / From the thirteenth century" },
+  { character: "A Man Named Gray", song: "Idiot Wind", quote: "They say I shot a man named Gray and took his wife to Italy / She inherited a million bucks and when she died it came to me" },
+  { character: "The Fortune-Teller", song: "Idiot Wind", quote: "I ran into the fortune-teller, who said beware of lightning that might strike / I haven’t known peace and quiet for so long I can’t remember what it’s like" },
+  { character: "Big Jim", song: "Lily, Rosemary and the Jack of Hearts", quote: "Big Jim was no one’s fool, he owned the town’s only diamond mine / He made his usual entrance lookin’ so dandy and so fine" },
+  { character: "The Hangin’ Judge", song: "Lily, Rosemary and the Jack of Hearts", quote: "The hangin’ judge came in unnoticed and was being wined and dined / The drillin’ in the wall kept up but no one seemed to pay it any mind" },
+  { character: "The Deputy", song: "Shelter from the Storm", quote: "Well, the deputy walks on hard nails and the preacher rides a mount / But nothing really matters much, it’s doom alone that counts" },
+  { character: "The Preacher", song: "Shelter from the Storm", quote: "Well, the deputy walks on hard nails and the preacher rides a mount / But nothing really matters much, it’s doom alone that counts" },
+  { character: "Genghis Khan", song: "You Ain’t Goin’ Nowhere", quote: "Genghis Khan, he could not keep / All his kings, supplied with sleep" },
+  { character: "Patty Valentine", song: "Hurricane", quote: "Pistol shots ring out in the barroom night / Enter Patty Valentine from the upper hall" },
+  { character: "Rubin Carter", song: "Hurricane", quote: "Meanwhile, far away in another part of town / Rubin Carter and a couple of friends are drivin’ around" },
+  { character: "A Man in the Corner", song: "Isis", quote: "A man in the corner approached me for a match / I knew right away he was not ordinary" },
+  { character: "Jimmy Cagney", song: "Joey", quote: "When they let him out in ’71 he’d lost a little weight / But he dressed like Jimmy Cagney and I swear he did look great" },
+  { character: "Magdalena", song: "Romance in Durango", quote: "Me and Magdalena on the run / I think this time we shall escape" },
 ] as const;
 
 export type QuizEntry = (typeof DATA)[number];
