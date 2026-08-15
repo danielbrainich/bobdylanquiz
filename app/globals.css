@@ -463,6 +463,17 @@ img {
   transform: translateY(-2.5px);
 }
 
+.reveal-quote {
+  font-style: italic;
+  margin-bottom: 0.6rem;
+}
+
+.reveal-attribution {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .next-row {
   margin-top: 1.175rem;
   display: flex;

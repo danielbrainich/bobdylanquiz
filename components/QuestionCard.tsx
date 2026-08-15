@@ -195,13 +195,12 @@ export default function QuestionCard({
             >
               {headline}
             </h2>
-            <p className="reveal typewriter">
-              <b>{entry.character}</b>{" "}
-              <b>
-                <ArrowIcon />
-              </b>{" "}
-              <b>{entry.song}</b>: &ldquo;{entry.quote}&rdquo;
-            </p>
+            <div className="reveal typewriter">
+              <p className="reveal-quote">&ldquo;{entry.quote}&rdquo;</p>
+              <p className="reveal-attribution">
+                <ArrowIcon /> <b>{entry.song}</b>
+              </p>
+            </div>
             <div className="modal-actions">
               <button type="button" className="btn btn-primary" onClick={onNext}>
                 <span>{isLast ? "See Results" : "Next"}</span>
