@@ -39,6 +39,9 @@ export async function POST(request: NextRequest) {
         wrong: { increment: correct ? 0 : 1 },
       },
     }),
+    prisma.quizAnswer.create({
+      data: { quizRunId: runId, character, correct },
+    }),
   ]);
 
   return NextResponse.json({ ok: true });

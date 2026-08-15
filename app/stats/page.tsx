@@ -6,6 +6,7 @@ import { QUESTION_COUNT, formatMinutes } from "@/lib/quiz";
 export const dynamic = "force-dynamic";
 
 const ABANDON_CUTOFF_MS = 30 * 60 * 1000;
+const SAVED_ANSWERS_LIMIT = 25;
 
 const SONG_BY_CHARACTER = new Map<string, string>(DATA.map((d) => [d.character, d.song]));
 
@@ -28,6 +29,7 @@ export default async function StatsPage() {
     dropOffRaw,
     characterStats,
     completedAgg,
+    savedEntries,
   ] = await Promise.all([
     prisma.quizRun.count(),
     prisma.quizRun.count({ where: { finishedAt: { not: null } } }),
@@ -45,6 +47,14 @@ export default async function StatsPage() {
     prisma.quizRun.aggregate({
       where: { finishedAt: { not: null } },
       _avg: { score: true, timeMs: true },
+    }),
+    prisma.scoreEntry.findMany({
+      where: { quizRunId: { not: null } },
+      orderBy: { createdAt: "desc" },
+      take: SAVED_ANSWERS_LIMIT,
+      include: {
+        quizRun: { include: { answers: { orderBy: { createdAt: "asc" } } } },
+      },
     }),
   ]);
 
@@ -157,6 +167,71 @@ export default async function StatsPage() {
             </tbody>
           </table>
         </div>
+
+        <h2 className="poster-heading" style={{ marginTop: "2rem" }}>
+          Saved Leaderboard Answers
+        </h2>
+        <p className="typewriter empty-state" style={{ padding: 0, marginBottom: "0.75rem" }}>
+          Most recent {savedEntries.length} entries that saved initials, with what they got
+          right and wrong.
+        </p>
+        {savedEntries.length === 0 ? (
+          <p className="empty-state">No saved entries yet.</p>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {savedEntries.map((entry) => (
+              <div key={entry.id} className="panel">
+                <div
+                  className="typewriter"
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: "0.5rem",
+                    fontSize: "0.85rem",
+                  }}
+                >
+                  <span>
+                    <b>{entry.initials}</b> &mdash; {entry.score}/{QUESTION_COUNT} &mdash;{" "}
+                    {formatMinutes(entry.timeMs)}
+                  </span>
+                  <span style={{ color: "var(--cream-dim)" }}>
+                    {entry.createdAt.toLocaleString()}
+                  </span>
+                </div>
+                <div style={{ overflowX: "auto" }}>
+                  <table className="leaderboard-table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Character</th>
+                        <th>Song</th>
+                        <th>Result</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {entry.quizRun?.answers.length ? (
+                        entry.quizRun.answers.map((a, i) => (
+                          <tr key={a.id}>
+                            <td>{i + 1}</td>
+                            <td>{a.character}</td>
+                            <td>{SONG_BY_CHARACTER.get(a.character) ?? "—"}</td>
+                            <td className={a.correct ? "text-correct" : "text-wrong"}>
+                              {a.correct ? "Correct" : "Wrong"}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr className="empty-row">
+                          <td colSpan={4}>No answer detail recorded.</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );

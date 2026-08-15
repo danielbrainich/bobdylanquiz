@@ -24,15 +24,27 @@ model ScoreEntry {
 }
 
 model QuizRun {
-  id            String    @id @default(cuid())
-  startedAt     DateTime  @default(now())
+  id            String       @id @default(cuid())
+  startedAt     DateTime     @default(now())
   finishedAt    DateTime?
-  answeredCount Int       @default(0)
+  answeredCount Int          @default(0)
   score         Int?
   timeMs        Int?
   scoreEntry    ScoreEntry?
+  answers       QuizAnswer[]
 
   @@index([finishedAt])
+}
+
+model QuizAnswer {
+  id        String   @id @default(cuid())
+  quizRunId String
+  quizRun   QuizRun  @relation(fields: [quizRunId], references: [id], onDelete: Cascade)
+  character String
+  correct   Boolean
+  createdAt DateTime @default(now())
+
+  @@index([quizRunId])
 }
 
 model CharacterStat {
