@@ -125,7 +125,7 @@ export default function GameApp() {
             </div>
             <p className="start-blurb typewriter">
               Dylan&rsquo;s songs are full of characters: outlaws,
-              kings, clowns, and saints. Match {QUESTION_COUNT} of them to the
+              kings, lovers, and saints. Match {QUESTION_COUNT} of them to the
               songs they come from, as fast as you can.
             </p>
             <p
