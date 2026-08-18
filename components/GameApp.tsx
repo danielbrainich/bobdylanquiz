@@ -132,7 +132,7 @@ export default function GameApp() {
               className="typewriter"
               style={{ color: "var(--cream-dim)", fontSize: "0.85rem", marginTop: "-0.5rem" }}
             >
-              With 100 characters selected at random, no two rounds are the same!
+              With 100 characters in the mix, no two rounds are the same!
             </p>
             <button type="button" className="btn btn-primary" onClick={startQuiz}>
               Start Quiz
