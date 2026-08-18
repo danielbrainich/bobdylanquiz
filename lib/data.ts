@@ -16,7 +16,6 @@ export const DATA = [
   { character: "The Vandals", song: "Subterranean Homesick Blues", quote: "The pump don’t work / ’Cause the vandals took the handles" },
   { character: "The Man in the Trench Coat", song: "Subterranean Homesick Blues", quote: "The man in the trench coat / Badge out, laid off / Says he’s got a bad cough / Wants to get it paid off" },
   { character: "Captain Arab", song: "Bob Dylan’s 115th Dream", quote: "I was riding on the Mayflower / When I thought I spied some land / I yelled for Captain Arab / I have yuh understand" },
-  { character: "The Gray Flannel Dwarf", song: "Gates of Eden", quote: "The motorcycle black madonna / Two-wheeled gypsy queen / And her silver-studded phantom cause / The gray flannel dwarf to scream" },
   { character: "The Vagabond Who’s Rapping at Your Door", song: "It’s All Over Now, Baby Blue", quote: "The vagabond who’s rapping at your door / Is standing in the clothes that you once wore" },
   { character: "The Empty-Handed Painter from Your Streets", song: "It’s All Over Now, Baby Blue", quote: "The empty-handed painter from your streets / Is drawing crazy patterns on your sheets" },
   { character: "The Jugglers and the Clowns", song: "Like a Rolling Stone", quote: "You never turned around to see the frowns on the jugglers and the clowns / When they all come down and did tricks for you" },
@@ -56,7 +55,6 @@ export const DATA = [
   { character: "Genghis Khan", song: "You Ain’t Goin’ Nowhere", quote: "Genghis Khan, he could not keep / All his kings, supplied with sleep" },
   { character: "Patty Valentine", song: "Hurricane", quote: "Pistol shots ring out in the barroom night / Enter Patty Valentine from the upper hall" },
   { character: "Rubin Carter", song: "Hurricane", quote: "Meanwhile, far away in another part of town / Rubin Carter and a couple of friends are drivin’ around" },
-  { character: "A Man in the Corner", song: "Isis", quote: "A man in the corner approached me for a match / I knew right away he was not ordinary" },
   { character: "Jimmy Cagney", song: "Joey", quote: "When they let him out in ’71 he’d lost a little weight / But he dressed like Jimmy Cagney and I swear he did look great" },
   { character: "Magdalena", song: "Romance in Durango", quote: "Me and Magdalena on the run / I think this time we shall escape" },
 ] as const;
